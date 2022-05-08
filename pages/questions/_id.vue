@@ -11,25 +11,25 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default Vue.extend({
-  asyncData({ params, error, $http }) {
-    return $http
+  asyncData({ params, error, $axios }) {
+    return $axios
       .$get('/api/questions/' + params.id)
       .then((res) => {
-        return { user: res }
+        return { user: res };
       })
       .catch(() => {
-        error({ statusCode: 404, message: 'User not found' })
-      })
+        error({ statusCode: 404, message: 'User not found' });
+      });
   },
   head() {
     return {
       title: `User: ${this.user.name}`,
-    }
+    };
   },
-})
+});
 </script>
 
 <style scoped>

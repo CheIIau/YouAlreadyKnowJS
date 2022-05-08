@@ -18,8 +18,8 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  async asyncData({ $http }) {
-    const data = await $http.$get('/api/questions');
+  async asyncData({ $axios }) {
+    const data = await $axios.$get('/api/questions');
     return { users: data };
   },
   head() {

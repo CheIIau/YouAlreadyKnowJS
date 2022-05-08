@@ -56,11 +56,13 @@
             </div>
             <div class="hidden sm:block sm:ml-6">
               <div class="flex space-x-4">
-                <a
-                  href="#"
-                  class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                  aria-current="page"
-                  >Dashboard</a
+                <nuxt-link class="button" to="/questions">
+                  <button
+                    class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                    aria-current="page"
+                  >
+                    Вопросы
+                  </button></nuxt-link
                 >
 
                 <a
@@ -101,11 +103,13 @@
 
       <div v-if="toggleMobileMenu" id="mobile-menu" class="sm:hidden">
         <div class="px-2 pt-2 pb-3 space-y-1">
-          <a
-            href="#"
-            class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-            aria-current="page"
-            >Dashboard</a
+          <nuxt-link class="button" to="/questions">
+            <button
+              class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+              aria-current="page"
+            >
+              Вопросы
+            </button></nuxt-link
           >
 
           <a

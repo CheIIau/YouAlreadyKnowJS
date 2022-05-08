@@ -1,4 +1,3 @@
-// import path from 'path';
 import express, { json, urlencoded } from 'express';
 import cors from 'cors';
 // @ts-ignore
@@ -12,13 +11,14 @@ import 'dotenv/config';
 const dev = process.env.NODE_ENV !== 'production';
 
 const app = express();
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(questionsRouter);
 app.use('/auth', authRouter);
+
 async function startMongo() {
   try {
     await connect(process.env.MONGO_URI!);
@@ -36,6 +36,7 @@ async function start() {
     process.kill(process.pid, 'SIGUSR2');
   }); // if process on this port already exists, kill it
   app.use(nuxt.render);
+
   if (dev) {
     const builder = new Builder(nuxt);
     await builder.build();
@@ -44,7 +45,7 @@ async function start() {
   }
 
   // app.listen(port, function () {
-  //   console.log(6);
+  //   console.log('Server is running... from you');
   // });
 
   // consola.ready({

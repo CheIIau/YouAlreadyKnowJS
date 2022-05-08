@@ -15,7 +15,7 @@ router.post('/register', (async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body as requestRegisterBody;
     const existingUser = await UserDataModel.findOne({ email });
-    
+
     if (existingUser) {
       return res
         .status(400)
@@ -25,7 +25,7 @@ router.post('/register', (async (req: Request, res: Response) => {
     const user = new UserDataModel({ email, password: hashedPassword });
 
     await user.save();
-    console.log(user);
+
     res.status(201).json({ message: 'Вы зарегистрированы' });
   } catch (e) {
     res.status(500).json({ message: 'Что-то пошло не так' });
