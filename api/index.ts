@@ -14,7 +14,6 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.set('port', port);
 app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
@@ -48,10 +47,10 @@ async function start() {
     process.send!('ready');
   });
 
-  consola.ready({
-    message: `Server listening on port: ${port}`,
-    badge: true,
-  });
+  // consola.ready({
+  //   message: `Server listening on port: ${port}`,
+  //   badge: true,
+  // });
 }
 
 start();
