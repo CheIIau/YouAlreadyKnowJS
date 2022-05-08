@@ -22,7 +22,9 @@ app.use(questionsRouter);
 app.use('/auth', authRouter);
 async function startMongo() {
   try {
-    await connect(process.env.MONGO_URI!);
+    await connect(
+      'mongodb+srv://CheIIau:KNMd2g4yAZqzw5x@cluster0.j6umj.mongodb.net/YouAlreadyKnowJS?retryWrites=true&w=majority'
+    );
     console.log('succesfully connected to DB');
   } catch (e) {
     console.log('Server Error', e);
