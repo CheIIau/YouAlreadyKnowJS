@@ -50,9 +50,9 @@ async function start() {
   }
   console.log(5);
 
-  app.listen(port, function () {
-    console.log(6);
-  });
+  // app.listen(port, function () {
+  //   console.log(6);
+  // });
 
   // consola.ready({
   //   message: `Server listening on port: ${port}`,
