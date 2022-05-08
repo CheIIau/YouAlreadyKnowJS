@@ -1,13 +1,13 @@
 // import path from 'path';
 import express, { json, urlencoded } from 'express';
 import cors from 'cors';
-import consola from 'consola';
 // @ts-ignore
 import { Nuxt, Builder } from 'nuxt';
 import { connect } from 'mongoose';
 import config from '../nuxt.config.js';
 import { router as questionsRouter } from './routes/questions';
 import { router as authRouter } from './routes/auth';
+import 'dotenv/config';
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -21,9 +21,7 @@ app.use(questionsRouter);
 app.use('/auth', authRouter);
 async function startMongo() {
   try {
-    await connect(
-      'mongodb+srv://CheIIau:KNMd2g4yAZqzw5x@cluster0.j6umj.mongodb.net/YouAlreadyKnowJS?retryWrites=true&w=majority'
-    );
+    await connect(process.env.MONGO_URI!);
     console.log('succesfully connected to DB');
   } catch (e) {
     console.log('Server Error', e);
@@ -34,21 +32,16 @@ startMongo();
 
 async function start() {
   const nuxt = new Nuxt(config);
-  console.log(1);
   process.once('SIGUSR2', function () {
     process.kill(process.pid, 'SIGUSR2');
-  });
-  console.log(2);
+  }); // if process on this port already exists, kill it
   app.use(nuxt.render);
   if (dev) {
     const builder = new Builder(nuxt);
-    console.log(3);
     await builder.build();
   } else {
-    console.log(4);
     await nuxt.ready();
   }
-  console.log(5);
 
   // app.listen(port, function () {
   //   console.log(6);
@@ -61,58 +54,5 @@ async function start() {
 }
 
 start();
-
-// async function start(): Promise<void> {
-//   // Init Nuxt.js
-//   const nuxt = new Nuxt(config);
-//   console.log(1);
-//   // Build only in dev mode
-//   if (dev) {
-//     const builder = new Builder(nuxt);
-//     console.log(2);
-//     await builder.build();
-//     console.log(3);
-//   }
-//   await nuxt.ready();
-//   console.log(4);
-//   app.use(nuxt.render);
-//   // app.use('/auth', authRouter);
-//   console.log(5);
-//   app.listen(port, () => {
-//     console.log(6);
-//     consola.ready({
-//       message: `Server listening on port ${port}`,
-//       badge: true,
-//     });
-//   });
-//   console.log(7);
-// }
-
-// start().catch((e) => {
-//   console.log(e);
-// });
-
-// app.listen(port, () => {
-//  console.log(`API server listening on port ${port}`);
-// });
-
-// async function start() {
-//   try {
-//     await connect(process.env.MONGO_URI!);
-//     console.log('succesfully connected to DB');
-//   } catch (e) {
-//     console.log('Server Error', e);
-//     process.exit(1);
-//   }
-// }
-
-// async function start() {
-//   const app = express();
-//   const nuxt = new Nuxt(config);
-//   await nuxt.ready();
-//   app.use('/_nuxt', express.static(path.join(__dirname, '.nuxt', 'dist')));
-//   app.use(nuxt.render);
-//   return app;
-// }
 
 export default app;
