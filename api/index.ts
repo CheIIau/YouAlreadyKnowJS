@@ -34,17 +34,24 @@ startMongo();
 
 async function start() {
   const nuxt = new Nuxt(config);
-
+  console.log(1);
+  process.once('SIGUSR2', function () {
+    process.kill(process.pid, 'SIGUSR2');
+  });
+  console.log(2);
+  app.use(nuxt.render);
   if (dev) {
     const builder = new Builder(nuxt);
+    console.log(3);
     await builder.build();
   } else {
+    console.log(4);
     await nuxt.ready();
   }
+  console.log(5);
 
-  app.use(nuxt.render);
   app.listen(port, function () {
-    process.send!('ready');
+    console.log(6);
   });
 
   // consola.ready({
