@@ -48,7 +48,9 @@
             class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
           >
             <div class="flex-shrink-0 flex items-center">
-              <div class="font-sans text-xl text-blue-300 font-black">
+              <div
+                class="font-sans text-xl text-yellow-400 hover:text-yellow-500 font-black"
+              >
                 <nuxt-link class="button" to="/">
                   You Already Know JS
                 </nuxt-link>
@@ -78,12 +80,6 @@
                   class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >Projects</a
                 >
-
-                <a
-                  href="#"
-                  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >Calendar</a
-                >
               </div>
             </div>
           </div>
@@ -93,7 +89,7 @@
             <div class="ml-3 relative">
               <nuxt-link class="button" to="/auth">
                 <button
-                  class="px-4 py-2 text-sm text-white duration-100 bg-indigo-600 rounded-md shadow-md focus:shadow-none ring-offset-2 ring-indigo-600 focus:ring-2"
+                  class="px-4 py-2 text-sm text-white duration-100 bg-yellow-400 hover:bg-yellow-500 rounded-md shadow-md focus:shadow-none ring-offset-2 ring-indigo-600 focus:ring-2"
                 >
                   Войти
                 </button>
@@ -124,12 +120,6 @@
             href="#"
             class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >Projects</a
-          >
-
-          <a
-            href="#"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-            >Calendar</a
           >
         </div>
       </div>

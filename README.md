@@ -1,4 +1,4 @@
-# someapplication
+# YouAlreadyKnowJS
 
 ## Build Setup
 

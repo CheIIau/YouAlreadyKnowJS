@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import Vue from 'vue';
 
 interface AuthResponse {
   message: string;
@@ -56,10 +57,10 @@ export async function requestAuthHandler(
   let resJson;
   try {
     const response = await cb(email, password);
-    console.log(response.statusText);
     resJson = await response;
-    message = resJson.data.message;
+    message = response.data.message;
     console.log(message);
+    Vue.toasted.success(message);
     if (response.status === 400) {
       throw new Error(message);
     }
@@ -69,6 +70,7 @@ export async function requestAuthHandler(
   } catch (e) {
     const error = e as AxiosError;
     console.log(error.response?.data.message);
+    Vue.toasted.error(error.response?.data.message);
   }
   if (resJson?.data.userId && resJson.data.token) {
     return {

@@ -8,7 +8,11 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Сайт для оценки уровня владения Javascript' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Сайт для оценки уровня владения Javascript',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -32,6 +36,7 @@ export default {
     '@nuxtjs/pwa',
     '@nuxt/http',
     ['@nuxtjs/axios'],
+    '@nuxtjs/toast',
     [
       'nuxt-highlightjs',
       {
@@ -39,6 +44,12 @@ export default {
       },
     ],
   ],
+
+  toast: {
+    position: 'bottom-center',
+    duration: 3000,
+    singleton: true,
+  },
 
   publicRuntimeConfig: {
     axios: {
@@ -63,5 +74,11 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    postcss: {
+      plugins: {
+        'postcss-nested': {},
+      },
+    },
+  },
 };

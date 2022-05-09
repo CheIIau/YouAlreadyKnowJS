@@ -9,10 +9,15 @@
     </div>
     <div class="answers">
       <button
-        v-for="answer in answers"
+        v-for="(answer, i) in answers"
         :key="answer"
-        class="answer-button bg-cyan-500 hover:bg-cyan-600"
+        class="bg-gray-800 answer-button py-4 px-2 m-2 text-gray-200 rounded-2xl hover:bg-gray-600"
         type="button"
+        :class="{
+          'answer-button__disabled': isAnswered,
+        }"
+        :disabled="isAnswered"
+        @click="sendAnswer(i)"
       >
         {{ answer }}
       </button>
@@ -33,18 +38,25 @@ export default Vue.extend({
         let name = 'Sarah'
       }
       getName()`,
-      answers: {
-        answer1: 'Sarah',
-        answer2: 'undefined',
-        answer3: 'Lydia',
-        answer4: 'ReferenceError',
-      },
+      answers: ['Sarah', 'undefined', 'Lydia', 'ReferenceError'],
+      correctAnswer: 3,
+      isAnswered: false,
     };
+  },
+  methods: {
+    sendAnswer(answerIndex: number) {
+      if (answerIndex === this.correctAnswer) {
+        this.$toast.success('Верно');
+      } else {
+        this.$toast.error('Неверно');
+      }
+      this.isAnswered = true;
+    },
   },
 });
 </script>
 
-<style scoped>
+<style scoped lang="postcss">
 .question {
   margin-top: 20px;
 }
@@ -61,11 +73,19 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   background-color: #282c34;
+  margin-bottom: 20px;
 }
 .answers {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.answer-button {
+  min-width: 300px;
+  &__disabled {
+    cursor: not-allowed;
+    background-color: #9ca3af;
+  }
 }
 </style>
