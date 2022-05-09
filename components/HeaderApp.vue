@@ -65,10 +65,12 @@
                   </button></nuxt-link
                 >
 
-                <a
-                  href="#"
-                  class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >Team</a
+                <nuxt-link class="button" to="/add">
+                  <button
+                    class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Добавить
+                  </button></nuxt-link
                 >
 
                 <a
@@ -137,11 +139,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 export default Vue.extend({
   data() {
     return {
       toggleMobileMenu: false,
     };
+  },
+  computed: {
+    ...mapGetters(['isUserAuth']),
   },
   methods: {
     openMenu() {

@@ -1,13 +1,51 @@
 import { Store } from 'vuex';
+import axios from 'axios';
 
 const createStore = () => {
   return new Store({
-    state: () => ({
-      counter: 0,
-    }),
+    state: {
+      isAuth: false,
+      isLoading: false,
+    },
     mutations: {
-      increment(state) {
-        state.counter++;
+      setUserAuthFlag(state, payload: boolean): void {
+        state.isAuth = payload;
+      },
+      setLoadingFlag(state, payload: boolean): void {
+        state.isLoading = payload;
+      },
+    },
+    getters: {
+      isUserAuth(state) {
+        return state.isAuth;
+      },
+      isLoading(state) {
+        return state.isLoading;
+      },
+    },
+    actions: {
+      async getUserAuthentification({ commit }) {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.log('Токен не найден');
+          return;
+        }
+        try {
+          const response = await axios.get('/api/auth/auth', {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const resJson = await response.data;
+          const message = resJson.message;
+          if (response.status === 400 || !resJson.token) {
+            throw new Error(message);
+          }
+          if (resJson !== undefined && resJson.token) {
+            commit('setUserAuthFlag', true);
+          }
+        } catch (error) {
+          const message = (error as Error).message;
+          console.log(message);
+        }
       },
     },
   });

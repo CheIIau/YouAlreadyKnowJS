@@ -46,8 +46,9 @@
 
         <div>
           <button
-            type="submit"
+            type="button"
             class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            @click="onLogin"
           >
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <svg
@@ -83,6 +84,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions, mapGetters } from 'vuex';
 import {
   fetchRegister,
   fetchLogin,
@@ -97,11 +99,21 @@ export default Vue.extend({
       password: '',
     };
   },
+  computed: {
+    ...mapGetters(['isUserAuth']),
+  },
   methods: {
+    ...mapActions(['getUserAuthentification']),
     async onRegister() {
       if (this.email && this.password) {
-        await requestAuthHandler(fetchRegister, this.email, this.password);
-        await this.onLogin();
+        const register = await requestAuthHandler(
+          fetchRegister,
+          this.email,
+          this.password
+        );
+        if (register?.registered) {
+          await this.onLogin();
+        }
       } else {
         console.log('Ошибка. Попробуйте еще раз');
       }
@@ -114,8 +126,8 @@ export default Vue.extend({
           this.password
         )) as AuthCredentials;
         storeUserData(userId, token, this.email);
-        // await store.dispatch(SharedActions.getUserAuthentification);
-        // await router.push('/');
+        await this.getUserAuthentification();
+        // await this.$router.push('/');
       } else {
         console.log('Ошибка. Попробуйте еще раз');
       }

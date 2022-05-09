@@ -63,6 +63,9 @@ export async function requestAuthHandler(
     if (response.status === 400) {
       throw new Error(message);
     }
+    if (response.status === 201) {
+      return { registered: true };
+    }
   } catch (e) {
     const error = e as AxiosError;
     console.log(error.response?.data.message);
@@ -71,7 +74,7 @@ export async function requestAuthHandler(
     return {
       userId: resJson.data.userId,
       token: resJson.data.token,
-    } as AuthCredentials;
+    };
   }
 }
 
