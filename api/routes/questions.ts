@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { QuestionsModel } from '../models';
+import { QuestionsModel, Question } from '../models';
 const router = Router();
 
 // Mock Users
@@ -15,6 +15,25 @@ router.get('/questions/:id', function (req, res) {
     res.json(users[id]);
   } else {
     res.sendStatus(404);
+  }
+});
+
+router.get('/allquestions', async (_req, res) => {
+  try {
+    const questions = (await QuestionsModel.find({})) as Array<Question>;
+    res.json(questions);
+  } catch (e) {
+    res.status(500).json({ message: 'Что-то пошло не так' });
+  }
+});
+
+router.get('/allquestionsids', async (_req, res) => {
+  try {
+    const questions = (await QuestionsModel.find({})) as Array<Question>;
+    const questionsIds = questions.map((question) => question._id);
+    res.json(questionsIds);
+  } catch (e) {
+    res.status(500).json({ message: 'Что-то пошло не так' });
   }
 });
 
@@ -38,9 +57,9 @@ router.post('/addquestion', async (req, res) => {
       correctAnswer,
     });
     await questionData.save();
-    res.status(201).json({ message: 'Вопрос добавлен' });
+    res.status(201).json({ message: 'Тест добавлен' });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка на сервере. Вопрос не добавлен' });
+    res.status(500).json({ message: 'Ошибка на сервере. Тест не добавлен' });
   }
 });
 

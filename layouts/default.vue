@@ -1,14 +1,16 @@
 <template>
   <div>
     <header-app />
-    <Nuxt />
+    <div class="mt-5">
+      <Nuxt />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
-import HeaderApp from '~/components/HeaderApp.vue';
+import HeaderApp from '~/components/HeaderApp/HeaderApp.vue';
 export default Vue.extend({
   components: {
     HeaderApp,

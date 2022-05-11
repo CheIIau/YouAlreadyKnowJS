@@ -1,8 +1,11 @@
 <template>
   <div class="add-question-layout">
-    <div class="mt-5 md:max-w-md md:col-span-2 add-question-wrapper">
+    <div class="md:max-w-md md:col-span-2 add-question-wrapper">
       <form>
-        <div class="shadow sm:rounded-md sm:overflow-hidden">
+        <div
+          v-if="!hasQuestionBeenAdded"
+          class="shadow sm:rounded-md sm:overflow-hidden"
+        >
           <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
             <div class="grid grid-cols-3 gap-6">
               <div class="col-span-3 sm:col-span-2">
@@ -27,7 +30,10 @@
             </div>
 
             <div>
-              <label for="code" class="block text-sm font-medium text-gray-700">
+              <label
+                for="code"
+                class="block text-sm font-medium text-gray-700"
+              >
                 Код
               </label>
               <div class="mt-1">
@@ -185,6 +191,7 @@
           </div>
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <button
+              v-if="!isLoading"
               type="button"
               class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
               @click="
@@ -201,8 +208,14 @@
             >
               Добавить
             </button>
+            <spinner v-else />
           </div>
         </div>
+        <add-another-question
+          v-if="hasQuestionBeenAdded"
+          :has-question-been-added="hasQuestionBeenAdded"
+          @showForm="hasQuestionBeenAdded = false"
+        />
       </form>
     </div>
   </div>
@@ -210,8 +223,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters, mapMutations } from 'vuex';
 import { questionObject, sendQuestion } from './add';
+import Spinner from '~/components/Spinner.vue';
+import AddAnotherQuestion from '~/components/AddAnotherQuestion.vue';
 export default Vue.extend({
+  components: { AddAnotherQuestion, Spinner },
   data() {
     return {
       question: '',
@@ -221,11 +238,24 @@ export default Vue.extend({
       answer3: '',
       answer4: '',
       correctAnswer: '0',
+      hasQuestionBeenAdded: false,
     };
   },
+  computed: { ...mapGetters(['isLoading']) },
   methods: {
-    addQuestion(questionObject: questionObject) {
-      sendQuestion(questionObject);
+    ...mapMutations(['setLoadingFlag']),
+    async addQuestion(questionObject: questionObject) {
+      this.setLoadingFlag(true);
+      await sendQuestion(questionObject);
+      this.question =
+        this.code =
+        this.answer1 =
+        this.answer2 =
+        this.answer3 =
+        this.answer4 =
+          '';
+      this.hasQuestionBeenAdded = true;
+      this.setLoadingFlag(false);
     },
     checkForInput(event: InputEvent) {
       const input = event.target as HTMLTextAreaElement;

@@ -1,14 +1,14 @@
 <template>
-  <ExampleComponent />
+  <WelcomeComponent />
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 
-import ExampleComponent from '~/components/ExampleComponent.vue';
+import WelcomeComponent from '~/components/WelcomeComponent.vue';
 export default Vue.extend({
   components: {
-    ExampleComponent,
+    WelcomeComponent,
   },
 });
 </script>

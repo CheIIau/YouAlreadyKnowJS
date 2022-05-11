@@ -1,11 +1,12 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
 interface UserData {
   email: string;
   password: string;
 }
 
-interface Question {
+export interface Question {
+  _id: Types.ObjectId;
   question: string;
   code: string;
   answers: Array<string>;
@@ -19,8 +20,8 @@ const userDataSchema = new Schema<UserData>({
 
 const QuestionsSchema = new Schema<Question>({
   question: { type: String, required: true },
-  code: { type: String, required: true }, 
-  answers: [{ type: String, required: true}],
+  code: { type: String, required: true },
+  answers: [{ type: String, required: true }],
   correctAnswer: { type: String, required: true },
 });
 

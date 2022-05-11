@@ -27,6 +27,10 @@ export default Vue.extend({
       title: 'Users',
     };
   },
+  async mounted() {
+    const questions = await this.$axios.$get('/api/allquestions');
+    console.log(questions);
+  },
 });
 </script>
 

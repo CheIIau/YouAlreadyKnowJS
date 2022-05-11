@@ -1,5 +1,5 @@
 <template>
-  <div class="question">
+  <div>
     <p class="question-text">{{ question }}</p>
     <div class="question-code">
       <pre>
@@ -56,10 +56,7 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped lang="postcss">
-.question {
-  margin-top: 20px;
-}
+<style scoped>
 .question-text {
   text-align: center;
   color: white;
@@ -75,6 +72,9 @@ export default Vue.extend({
   background-color: #282c34;
   margin-bottom: 20px;
 }
+</style>
+
+<style lang="postcss">
 .answers {
   display: flex;
   flex-direction: column;

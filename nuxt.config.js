@@ -78,6 +78,7 @@ export default {
     postcss: {
       plugins: {
         'postcss-nested': {},
+        tailwindcss: {},
       },
     },
   },

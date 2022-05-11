@@ -6,6 +6,7 @@ const createStore = () => {
     state: {
       isAuth: false,
       isLoading: false,
+      isLocalLoading: false,
     },
     mutations: {
       setUserAuthFlag(state, payload: boolean): void {
@@ -14,6 +15,9 @@ const createStore = () => {
       setLoadingFlag(state, payload: boolean): void {
         state.isLoading = payload;
       },
+      setLocalLoadingFlag(state, payload: boolean): void {
+        state.isLocalLoading = payload;
+      },
     },
     getters: {
       isUserAuth(state) {
@@ -21,6 +25,9 @@ const createStore = () => {
       },
       isLoading(state) {
         return state.isLoading;
+      },
+      isLocalLoading(state) {
+        return state.isLocalLoading;
       },
     },
     actions: {
