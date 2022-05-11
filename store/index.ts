@@ -1,5 +1,6 @@
 import { Store } from 'vuex';
 import axios from 'axios';
+import Vue from 'vue';
 
 const createStore = () => {
   return new Store({
@@ -52,6 +53,7 @@ const createStore = () => {
         } catch (error) {
           const message = (error as Error).message;
           console.log(message);
+          Vue.toasted.error(message);
         }
       },
     },

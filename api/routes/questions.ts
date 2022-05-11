@@ -3,18 +3,28 @@ import { QuestionsModel, Question } from '../models';
 const router = Router();
 
 // Mock Users
-const users = [{ name: 'Alexandre' }, { name: 'Pooya' }, { name: 'Sébastien' }];
+// const users = [{ name: 'Alexandre' }, { name: 'Pooya' }, { name: 'Sébastien' }];
 
-router.get('/questions', function (_req, res) {
-  res.json(users);
-});
+// router.get('/questions', function (_req, res) {
+//   res.json(users);
+// });
 
-router.get('/questions/:id', function (req, res) {
-  const id = parseInt(req.params.id);
-  if (id >= 0 && id < users.length) {
-    res.json(users[id]);
+// router.get('/questions/:id', function (req, res) {
+//   const id = parseInt(req.params.id);
+//   if (id >= 0 && id < users.length) {
+//     res.json(users[id]);
+//   } else {
+//     res.sendStatus(404);
+//   }
+// });
+
+router.get('/questions/:id', async function (req, res) {
+  const id = req.params.id;
+  const question = await QuestionsModel.findById(id);
+  if (question) {
+    res.json(question);
   } else {
-    res.sendStatus(404);
+    res.status(404).json({ message: 'Вопрос не найден' });
   }
 });
 
@@ -27,7 +37,7 @@ router.get('/allquestions', async (_req, res) => {
   }
 });
 
-router.get('/allquestionsids', async (_req, res) => {
+router.get('/allQuestionsIds', async (_req, res) => {
   try {
     const questions = (await QuestionsModel.find({})) as Array<Question>;
     const questionsIds = questions.map((question) => question._id);

@@ -1,5 +1,5 @@
 <template>
-  <div class=" flex justify-center">
+  <div class="flex justify-center">
     <div class="p-5 border rounded-xl bg-gray-800 border-gray-900">
       <img
         class="mx-auto h-28 w-auto mb-4"

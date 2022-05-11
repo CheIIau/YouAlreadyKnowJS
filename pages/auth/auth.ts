@@ -59,7 +59,6 @@ export async function requestAuthHandler(
     const response = await cb(email, password);
     resJson = await response;
     message = response.data.message;
-    console.log(message);
     Vue.toasted.success(message);
     if (response.status === 400) {
       throw new Error(message);
@@ -69,7 +68,6 @@ export async function requestAuthHandler(
     }
   } catch (e) {
     const error = e as AxiosError;
-    console.log(error.response?.data.message);
     Vue.toasted.error(error.response?.data.message);
   }
   if (resJson?.data.userId && resJson.data.token) {

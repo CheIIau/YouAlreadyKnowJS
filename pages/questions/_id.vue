@@ -1,11 +1,17 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="title">User</h1>
+      <h1 class="title">Question</h1>
       <h2 class="info">
-        {{ user.name }}
+        {{ question.question }}
       </h2>
-      <nuxt-link class="button" to="/questions"> Users </nuxt-link>
+      <h2 class="info">
+        {{ question.code }}
+      </h2>
+      <nuxt-link
+        class="button"
+        to="/questions"
+      > Вопросы </nuxt-link>
     </div>
   </section>
 </template>
@@ -18,15 +24,15 @@ export default Vue.extend({
     return $axios
       .$get('/api/questions/' + params.id)
       .then((res) => {
-        return { user: res };
+        return { question: res };
       })
-      .catch(() => {
-        error({ statusCode: 404, message: 'User not found' });
+      .catch((e) => {
+        error({ statusCode: e.statusCode, message: e.message });
       });
   },
   head() {
     return {
-      title: `User: ${this.user.name}`,
+      title: 'Тест',
     };
   },
 });

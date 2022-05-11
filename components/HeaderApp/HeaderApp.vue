@@ -51,7 +51,8 @@
                   class="button"
                   to="/"
                 >
-                  You Already Know JS
+                  <span class="header-title-md">You Already Know JS</span>
+                  <span class="header-title-sm">YakJS</span>
                 </nuxt-link>
               </div>
             </div>
@@ -177,3 +178,16 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped lang="postcss">
+.header-title-md {
+  @media (max-width: 371px) {
+    display: none;
+  }
+}
+.header-title-sm {
+  @media (min-width: 370px) {
+    display: none;
+  }
+}
+</style>

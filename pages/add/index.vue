@@ -18,10 +18,11 @@
                 <div class="mt-1 flex rounded-md shadow-sm">
                   <input
                     id="question"
+                    ref="question-input"
                     v-model="question"
                     type="text"
                     name="question"
-                    class="focus:ring-yellow-500 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300"
+                    class="focus:ring-yellow-500 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300 add-input"
                     placeholder="Например: Что будет в консоле?"
                     @input="checkForInput($event)"
                   />
@@ -39,10 +40,11 @@
               <div class="mt-1">
                 <textarea
                   id="code"
+                  ref="code-input"
                   v-model="code"
                   name="code"
                   rows="6"
-                  class="code-area shadow-sm px-2 py-1 focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                  class="code-area shadow-sm px-2 py-1 focus:ring-yellow-500 focus:border-yellow-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md add-input"
                   placeholder=""
                   @input="checkForInput($event)"
                 ></textarea>
@@ -73,15 +75,16 @@
                   <div class="mt-1 flex rounded-md">
                     <input
                       id="answer1"
+                      ref="answer1-input"
                       v-model="answer1"
                       type="text"
                       name="answer1"
-                      class="focus:ring-yellow-500 mb-2 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300"
+                      class="focus:ring-yellow-500 mb-2 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300 add-input"
                       @input="checkForInput($event)"
                     />
                   </div>
                 </div>
-                <div class="radio-button sm:col-span-2">
+                <div class="radio-button sm:col-span-2 radio-answer">
                   <label class="inline-flex items-center mt-3">
                     <input
                       v-model="correctAnswer"
@@ -105,15 +108,16 @@
                   <div class="mt-1 flex rounded-md">
                     <input
                       id="answer2"
+                      ref="answer2-input"
                       v-model="answer2"
                       type="text"
                       name="answer2"
-                      class="focus:ring-yellow-500 mb-2 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300"
+                      class="focus:ring-yellow-500 mb-2 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300 add-input"
                       @input="checkForInput($event)"
                     />
                   </div>
                 </div>
-                <div class="radio-button sm:col-span-2">
+                <div class="radio-button sm:col-span-2 radio-answer">
                   <label class="inline-flex items-center mt-3">
                     <input
                       v-model="correctAnswer"
@@ -136,15 +140,16 @@
                   <div class="mt-1 flex rounded-md">
                     <input
                       id="answer3"
+                      ref="answer3-input"
                       v-model="answer3"
                       type="text"
                       name="answer3"
-                      class="focus:ring-yellow-500 mb-2 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300"
+                      class="focus:ring-yellow-500 mb-2 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300 add-input"
                       @input="checkForInput($event)"
                     />
                   </div>
                 </div>
-                <div class="radio-button sm:col-span-2">
+                <div class="radio-button sm:col-span-2 radio-answer">
                   <label class="inline-flex items-center mt-3">
                     <input
                       v-model="correctAnswer"
@@ -167,15 +172,16 @@
                   <div class="mt-1 flex rounded-md">
                     <input
                       id="answer4"
+                      ref="answer4-input"
                       v-model="answer4"
                       type="text"
                       name="answer4"
-                      class="focus:ring-yellow-500 mb-2 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300"
+                      class="focus:ring-yellow-500 mb-2 px-2 py-1 focus:border-yellow-600 flex-1 block w-full rounded-md sm:text-sm border border-gray-300 add-input"
                       @input="checkForInput($event)"
                     />
                   </div>
                 </div>
-                <div class="radio-button sm:col-span-2">
+                <div class="radio-button sm:col-span-2 radio-answer">
                   <label class="inline-flex items-center mt-3">
                     <input
                       v-model="correctAnswer"
@@ -246,6 +252,19 @@ export default Vue.extend({
     ...mapMutations(['setLoadingFlag']),
     async addQuestion(questionObject: questionObject) {
       this.setLoadingFlag(true);
+      for (const value of Object.values(questionObject)) {
+        if (!value) {
+          for (const key in this.$refs) {
+            const input = this.$refs[key] as HTMLTextAreaElement;
+            if (input.value === '') {
+              input?.classList.add('input-error');
+            }
+          }
+          this.$toast.error('Заполните все поля');
+          this.setLoadingFlag(false);
+          return;
+        }
+      }
       await sendQuestion(questionObject);
       this.question =
         this.code =
@@ -333,6 +352,12 @@ export default Vue.extend({
   }
   100% {
     -webkit-transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+.radio-answer {
+  @media (max-width: 639px) {
+    margin-right: 26px;
   }
 }
 </style>

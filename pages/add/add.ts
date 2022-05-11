@@ -13,12 +13,6 @@ export interface questionObject {
 
 export async function sendQuestion(questionObject: questionObject) {
   try {
-    for (const value of Object.values(questionObject)) {
-      if (!value) {
-        Vue.toasted.error('Заполните все поля');
-        return;
-      }
-    }
     const response = await axios.post('/api/addquestion', questionObject, {
       headers: {
         'Content-Type': 'application/json',

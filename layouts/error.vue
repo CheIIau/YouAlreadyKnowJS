@@ -7,15 +7,19 @@
       <h2 class="info">
         {{ error.message }}
       </h2>
-      <nuxt-link v-if="error.statusCode === 404" class="button" to="/">
-        Homepage
+      <nuxt-link
+        v-if="error.statusCode === 404"
+        class="button"
+        to="/"
+      >
+        Главная
       </nuxt-link>
     </div>
   </section>
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from 'vue';
 
 export default Vue.extend({
   props: {
@@ -24,7 +28,7 @@ export default Vue.extend({
       default: () => ({}),
     },
   },
-})
+});
 </script>
 
 <style scoped>
