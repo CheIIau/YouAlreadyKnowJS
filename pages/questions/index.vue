@@ -37,6 +37,7 @@ export default Vue.extend({
       title: 'Тесты',
     };
   },
+  fetchOnServer: true,
   computed: {
     ...mapGetters(['isLoading', 'questionsIds']),
     answeredClass() {

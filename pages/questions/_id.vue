@@ -20,6 +20,7 @@ export default Vue.extend({
         error({ statusCode: e.statusCode, message: e.message });
       });
   },
+  fetchOnServer: true,
   head() {
     return {
       title: 'Тест',
