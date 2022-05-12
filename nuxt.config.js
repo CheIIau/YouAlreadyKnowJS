@@ -8,6 +8,10 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'apple-mobile-web-app-title', content: 'YakJS' },
+      { name: 'application-name', content: 'YakJS' },
+      { name: 'msapplication-TileColor', content: '#3f444e' },
+      { name: 'theme-color', content: '#3f444e' },
       {
         hid: 'description',
         name: 'description',
@@ -15,7 +19,28 @@ export default {
       },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon-32x32.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon-16x16.png',
+      },
+      { rel: 'manifest', href: '/site.webmanifest' },
+      { rel: 'mask-ico', href: '/safari-pinned-tab.svg', color: '#fbbf24' },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

@@ -28,7 +28,7 @@ async function startMongo() {
     process.exit(1);
   }
 }
-startMongo();
+// startMongo();
 
 async function start() {
   const nuxt = new Nuxt(config);
@@ -54,6 +54,6 @@ async function start() {
   // });
 }
 
-start();
-
+// start();
+Promise.all([startMongo(), start()]);
 export default app;

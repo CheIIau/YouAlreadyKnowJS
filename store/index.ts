@@ -8,6 +8,8 @@ const createStore = () => {
       isAuth: false,
       isLoading: false,
       isLocalLoading: false,
+      questionsIds: <string[]>[],
+      currentQuestionIndex: 0,
     },
     mutations: {
       setUserAuthFlag(state, payload: boolean): void {
@@ -19,6 +21,12 @@ const createStore = () => {
       setLocalLoadingFlag(state, payload: boolean): void {
         state.isLocalLoading = payload;
       },
+      setQuestionsIds(state, payload: string[]): void {
+        state.questionsIds = payload;
+      },
+      setCurrentQuestionIndex(state, payload: number) {
+        state.currentQuestionIndex = payload;
+      },
     },
     getters: {
       isUserAuth(state) {
@@ -29,6 +37,12 @@ const createStore = () => {
       },
       isLocalLoading(state) {
         return state.isLocalLoading;
+      },
+      questionsIds(state) {
+        return state.questionsIds;
+      },
+      currentQuestionIndex(state) {
+        return state.currentQuestionIndex;
       },
     },
     actions: {
@@ -55,6 +69,10 @@ const createStore = () => {
           console.log(message);
           Vue.toasted.error(message);
         }
+      },
+      async getQuestionsIds({ commit }) {
+        const questionsIds = await axios.get('/api/allQuestionsIds');
+        commit('setQuestionsIds', questionsIds.data);
       },
     },
   });

@@ -11,7 +11,7 @@
               aria-expanded="false"
               @click="openMenu"
             >
-              <span class="sr-only">Open main menu</span>
+              <span class="sr-only">Открыть меню</span>
               <svg
                 class="block h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -61,9 +61,10 @@
                 <nuxt-link
                   class="button"
                   to="/questions"
+                  exact-active-class="bg-gray-900 rounded-md text-white"
                 >
                   <button
-                    class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                    class="text-white px-3 py-2 rounded-md text-sm font-medium"
                     aria-current="page"
                   >
                     Тесты
@@ -74,6 +75,7 @@
                   v-if="isUserAuth"
                   class="button"
                   to="/add"
+                  exact-active-class="bg-gray-900 rounded-md text-white"
                 >
                   <button class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                     Добавить вопрос
@@ -112,13 +114,14 @@
         id="mobile-menu"
         class="sm:hidden"
       >
-        <div class="px-2 pt-2 pb-3 space-y-1">
+        <div class="px-2 pt-2 pb-3 space-y-1 flex flex-col">
           <nuxt-link
-            class="button"
+            class="hover:bg-gray-700 rounded-md"
             to="/questions"
+            exact-active-class="bg-gray-900 text-white"
           >
             <button
-              class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+              class="text-gray-300  hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               aria-current="page"
             >
               Тесты
@@ -126,11 +129,12 @@
           </nuxt-link>
           <nuxt-link
             v-if="isUserAuth"
-            class="button"
             to="/add"
+            exact-active-class="bg-gray-900 text-white"
+            class="hover:bg-gray-700 rounded-md"
           >
             <button
-              class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+              class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
               aria-current="page"
             >
               Добавить вопрос
@@ -158,6 +162,11 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters(['isUserAuth', 'isLoading']),
+  },
+  watch: {
+    $route() {
+      this.toggleMobileMenu = false;
+    },
   },
   created() {
     this.setLoadingFlag(true);

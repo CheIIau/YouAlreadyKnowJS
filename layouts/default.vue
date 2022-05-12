@@ -23,8 +23,11 @@ export default Vue.extend({
       await this.getUserAuthentification();
     }
   },
+  async beforeMount() {
+    await this.getQuestionsIds();
+  },
   methods: {
-    ...mapActions(['getUserAuthentification']),
+    ...mapActions(['getUserAuthentification', 'getQuestionsIds']),
   },
 });
 </script>

@@ -14,7 +14,7 @@
         <div>
           <nuxt-link
             class="button"
-            to="/questions"
+            to="/questions/62795aa3c3e3860c8848c5da"
           >
             <button
               class="bg-gray-700 welcome-button py-4 px-2 m-2 text-gray-200 rounded-2xl hover:bg-gray-600"
