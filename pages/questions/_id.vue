@@ -12,7 +12,7 @@ export default Vue.extend({
   components: { QuestionComponent },
   async asyncData({ params, error, $axios }) {
     return await $axios
-      .$get('/api/questions/' + params.id)
+      .$get('https://yakjs.herokuapp.com/api/questions/' + params.id)
       .then((res) => {
         console.log(res);
         return { question: res };
