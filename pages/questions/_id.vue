@@ -14,13 +14,14 @@ export default Vue.extend({
     return await $axios
       .$get('/api/questions/' + params.id)
       .then((res) => {
+        console.log(res);
         return { question: res };
       })
       .catch((e) => {
+        console.log(e);
         error({ statusCode: e.statusCode, message: e.message });
       });
   },
-  fetchOnServer: true,
   head() {
     return {
       title: 'Тест',
