@@ -42,7 +42,6 @@ export default {
       { rel: 'mask-ico', href: '/safari-pinned-tab.svg', color: '#fbbf24' },
     ],
   },
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
@@ -76,17 +75,17 @@ export default {
     singleton: true,
   },
 
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
-    },
-  },
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: process.env.BROWSER_BASE_URL,
+  //   },
+  // },
 
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.BASE_URL,
-    },
-  },
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: process.env.BASE_URL,
+  //   },
+  // },
 
   serverMiddleware: {
     '/api': '~/api',

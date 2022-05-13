@@ -29,14 +29,9 @@ import Vue from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
 export default Vue.extend({
   async asyncData({ $axios }) {
-    const data = await $axios
-      .$get('/api/allQuestionsIds')
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const data = await $axios.$get('/api/allQuestionsIds').catch((error) => {
+      console.log(error);
+    });
 
     return { questions: data };
   },
