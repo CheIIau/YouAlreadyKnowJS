@@ -74,18 +74,10 @@ export default {
     duration: 3000,
     singleton: true,
   },
-
-  // publicRuntimeConfig: {
-  //   axios: {
-  //     browserBaseURL: process.env.BROWSER_BASE_URL,
-  //   },
-  // },
-
-  // privateRuntimeConfig: {
-  //   axios: {
-  //     baseURL: process.env.BASE_URL,
-  //   },
-  // },
+  
+  axios: {
+    browserBaseURL: process.env.API_URL,
+},
 
   serverMiddleware: {
     '/api': '~/api',
