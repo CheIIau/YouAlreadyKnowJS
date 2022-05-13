@@ -229,7 +229,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 import { questionObject, sendQuestion } from './add';
 import Spinner from '~/components/Spinner.vue';
 import AddAnotherQuestion from '~/components/AddAnotherQuestion.vue';
@@ -250,6 +250,7 @@ export default Vue.extend({
   computed: { ...mapGetters(['isLoading']) },
   methods: {
     ...mapMutations(['setLoadingFlag']),
+    ...mapActions(['getQuestionsIds']),
     async addQuestion(questionObject: questionObject) {
       this.setLoadingFlag(true);
       for (const value of Object.values(questionObject)) {
@@ -275,6 +276,7 @@ export default Vue.extend({
           '';
       this.hasQuestionBeenAdded = true;
       this.setLoadingFlag(false);
+      await this.getQuestionsIds();
     },
     checkForInput(event: InputEvent) {
       const input = event.target as HTMLTextAreaElement;
