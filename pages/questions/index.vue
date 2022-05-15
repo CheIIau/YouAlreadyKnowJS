@@ -56,6 +56,14 @@ export default Vue.extend({
       };
     },
   },
+  mounted() {
+    const answeredQuestions = localStorage
+      .getItem('answeredQuestions')
+      ?.split(',');
+    if (answeredQuestions?.length === this.questionsIds.length) {
+      this.$toast.success('Кажется, вы ответили на все тесты');
+    }
+  },
   methods: {
     ...mapMutations(['setCurrentQuestionIndex']),
     onQuestionClick(i: number) {
