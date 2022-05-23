@@ -10,6 +10,7 @@
       <button
         v-for="(answer, i) in question.answers"
         :key="answer"
+        data-test="answer-button"
         class="bg-gray-800 answer-button py-3 px-2 m-2 text-gray-200 rounded-2xl hover:bg-gray-600"
         type="button"
         :class="answerClass(i)"

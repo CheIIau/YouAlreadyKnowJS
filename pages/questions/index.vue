@@ -19,8 +19,16 @@
           </button>
         </nuxt-link>
       </div>
+      <div class="flex justify-center">
+        <button
+          class="py-2 text-xl md:mx-4 text-white duration-100 bg-yellow-500 hover:bg-yellow-600 rounded-md shadow-md focus:shadow-none ring-offset-2 ring-indigo-600 focus:ring-2 py-4 px-2 m-2 mt-7 py-4 px-2 m-2 mt-7 text-gray-200 rounded-2xl hover:bg-gray-600"
+          type="button"
+          @click="clearAnswers"
+        >
+          Сбросить ответы
+        </button>
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -68,6 +76,12 @@ export default Vue.extend({
     ...mapMutations(['setCurrentQuestionIndex']),
     onQuestionClick(i: number) {
       this.setCurrentQuestionIndex(i);
+    },
+    clearAnswers() {
+      localStorage.removeItem('answeredQuestions');
+      this.$el.querySelectorAll('.question-link').forEach((item) => {
+        item.classList.remove('answered-question');
+      });
     },
   },
 });
