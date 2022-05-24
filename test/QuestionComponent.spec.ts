@@ -15,6 +15,9 @@ describe('QuestionComponent', () => {
   let mutations;
   let store: any;
   let getters: any;
+  const $route = {
+    params: { id: '321' },
+  };
   const mockData = {
     propsData: {
       question: <Question>{
@@ -24,12 +27,11 @@ describe('QuestionComponent', () => {
         correctAnswer: '0',
       },
     },
+    stubs: {
+      'nuxt-link': true,
+    },
     mocks: {
-      $route: {
-        params: {
-          id: '123',
-        },
-      },
+      $route,
       $toast: {
         success() {},
         error() {},
@@ -42,7 +44,7 @@ describe('QuestionComponent', () => {
   beforeEach(() => {
     getters = {
       currentQuestionIndex() {
-        return '123';
+        return '321';
       },
       questionsIds() {
         return ['123', '321'];
@@ -63,6 +65,7 @@ describe('QuestionComponent', () => {
       store,
       localVue,
     });
+
     expect(wrapper).toBeTruthy();
   });
 
@@ -73,9 +76,24 @@ describe('QuestionComponent', () => {
       localVue,
     });
     const buttons = wrapper.findAll('[data-test="answer-button"]');
-    expect(buttons).toHaveLength(4);
+
     await buttons.at(0).trigger('click');
+
+    expect(buttons).toHaveLength(4);
     expect(buttons.at(0).classes()).toContain('answer-button__correct');
     expect(buttons.at(1).classes()).toContain('answer-button__wrong');
+  });
+
+  it('If current question is the last one in array - show back-to-list button', async () => {
+    const wrapper = shallowMount(QuestionComponent, {
+      ...mockData,
+      store,
+      localVue,
+    });
+    const buttons = wrapper.findAll('[data-test="answer-button"]');
+
+    await buttons.at(2).trigger('click');
+
+    expect(wrapper.find('[data-test="back-to-list-btn"]').exists()).toBe(true);
   });
 });

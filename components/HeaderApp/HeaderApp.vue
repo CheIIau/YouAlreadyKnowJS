@@ -99,6 +99,7 @@
               <button
                 v-if="isUserAuth && !isLoading"
                 class="px-4 py-2 text-sm text-white duration-100 bg-yellow-400 hover:bg-yellow-500 rounded-md shadow-md focus:shadow-none ring-offset-2 ring-indigo-600 focus:ring-2"
+                data-test="header-app_logout-btn"
                 @click="onLogout"
               >
                 Выйти

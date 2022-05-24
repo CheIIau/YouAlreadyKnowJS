@@ -36,6 +36,7 @@
         <button
           class="bg-yellow-400 answer-button py-4 px-2 m-2 text-gray-200 rounded-2xl hover:bg-yellow-500"
           type="button"
+          data-test="back-to-list-btn"
         >
           Вернуться к списку вопросов
         </button>
